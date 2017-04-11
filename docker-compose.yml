@@ -1,0 +1,53 @@
+version: '3'
+
+services:
+  jmeter-master:
+    build: jmeter-master
+    image: epikurus/jmeter-master
+    command: /tests/test-ramp-up-down.jmx
+    environment:
+      - JMETER_SLAVES=jmeter-slave
+    networks:
+      - jmeter-net
+    ports:
+      - "60000:60000"
+    tty: true
+    volumes:
+      - ./tests:/tests
+    labels:
+      org.label-schema.group: "jmeter-master"
+    deploy:
+      replicas: 1
+      restart_policy:
+        condition: on-failure
+        delay: 10s
+        max_attempts: 3
+        window: 120s
+      placement:
+          constraints: [node.role == manager]
+
+  jmeter-slave:
+    build: jmeter-slave
+    image: epikurus/jmeter-slave
+    networks:
+      - jmeter-net
+    ports:
+      - "1099:1099"
+      - "50000:50000"
+    tty: true
+    labels:
+      org.label-schema.group: "jmeter-slave"
+    deploy:
+      mode: global
+      restart_policy:
+        condition: on-failure
+        delay: 10s
+        max_attempts: 3
+        window: 120s
+      placement:
+        constraints: [node.role == worker]
+
+networks:
+  jmeter-net:
+
+# vim: ts=2 sw=2 et sts=2 ft=yaml
