@@ -50,6 +50,9 @@ RUN cd $JMETER_HOME/lib/ext && \
     wget http://central.maven.org/maven2/org/eclipse/jetty/websocket/websocket-common/9.1.1.v20140108/websocket-common-9.1.1.v20140108.jar && \
     curl -O https://github.com/NovaTecConsulting/JMeter-InfluxDB-Writer/releases/download/v-${INFLUX_WRITER_VERSION}/JMeter-InfluxDB-Writer-plugin-${INFLUX_WRITER_VERSION}.jar
 
+RUN mkdir /tests
+
+WORKDIR /tests
 
 EXPOSE 1099 50000
 
