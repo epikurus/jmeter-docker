@@ -30,7 +30,7 @@
 
 Login to master node and copy the repository:
 
-                $git https://github.com/epikurus/jmeter-docker/jmeter-docker
+                $git https://github.com/epikurus/jmeter-docker
                 $cd jmeter-docker
 
 <b>Running Docker Compose locally</b>
