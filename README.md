@@ -70,7 +70,7 @@ Use the same command to verify on the slave nodes.
 
 <b> Listing the Slave IPs </b>
 
-       $ docker inspect --format '{{ .Name }} => {{ .NetworkSettings.IPAddress }}' $(docker ps -a -q)
+       $ docker inspect --format '{{range .NetworkSettings.Networks}}{{.IPAddress}}{{end}}' $(docker ps -a -q)
 
 
 <b> Stopping all the containers in a single shot </b>
