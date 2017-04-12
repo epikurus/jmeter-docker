@@ -6,6 +6,7 @@ services:
     image: epikurus/jmeter-master
     command: /tests/test-ramp-up-down.jmx
     environment:
+      - JVM_ARGS=-Xms512m -Xmx512m
       - JMETER_SLAVES=jmeter-slave
     networks:
       - jmeter-net
@@ -29,6 +30,8 @@ services:
   jmeter-slave:
     build: jmeter-slave
     image: epikurus/jmeter-slave
+    environment:
+      - JVM_ARGS=-Xms512m -Xmx512m
     networks:
       - jmeter-net
     ports:
